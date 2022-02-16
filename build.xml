@@ -3,10 +3,10 @@
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <!--define folder properties-->
-    <property environment="env" />
     <property name="dir.buildfile" value="."/>
     <property name="dir.workspace" value="${dir.buildfile}/../.."/>
     <property name="dir.jarfile" value="${dir.workspace}/git/kernel/jars"/>
+    <property environment="env" />
     <target name="create_run_jar">
         <jar destfile="${dir.jarfile}/sbml.utils.jar" filesetmanifest="mergewithoutmain">
             <manifest>
@@ -40,6 +40,8 @@
             <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/com/fasterxml/staxmate/staxmate/2.3.0/staxmate-2.3.0.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/junit/junit/4.10/junit-4.10.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/org/sbml/jsbml/ext/jsbml-arrays/1.6.1/jsbml-arrays-1.6.1.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/org/sbml/jsbml/ext/jsbml-comp/1.6.1/jsbml-comp-1.6.1.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/org/sbml/jsbml/ext/jsbml-distrib/1.6.1/jsbml-distrib-1.6.1.jar"/>
@@ -54,7 +56,7 @@
             <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/org/sbml/jsbml/modules/jsbml-tidy/1.6.1/jsbml-tidy-1.6.1.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/net/sf/jtidy/jtidy/r938/jtidy-r938.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/org/sbml/jsbml/ext/jsbml-fbc/1.6.1/jsbml-fbc-1.6.1.jar"/>
-            <fileset dir="${dir.workspace}/git/rna.meta/target/classes"/>
+            <fileset dir="${dir.workspace}/git/shared.meta/shared.meta/target/classes"/>
             <fileset dir="${dir.workspace}/git/p3api/target/classes"/>
             <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${env.HOME}/.m2/repository/org/apache/httpcomponents/httpcore/4.4.13/httpcore-4.4.13.jar"/>

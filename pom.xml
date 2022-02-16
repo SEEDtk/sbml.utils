@@ -104,9 +104,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-        	<groupId>org.theseed</groupId>
-        	<artifactId>rna.meta</artifactId>
-        	<version>1.0.0</version>
+            <groupId>org.theseed</groupId>
+            <artifactId>shared.meta</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
