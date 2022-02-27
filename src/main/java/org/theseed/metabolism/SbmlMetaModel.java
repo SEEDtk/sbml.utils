@@ -30,6 +30,7 @@ import org.theseed.genome.Genome;
  */
 public class SbmlMetaModel extends MetaModel {
 
+
     /**
      * Create a metabolic model.
      *
@@ -43,9 +44,9 @@ public class SbmlMetaModel extends MetaModel {
     }
 
     /**
-     * Add an SBML model to this map.  Currently, we just add the reactions, and
-     * do not create nodes or segments.  The result is good enough for analysis
-     * of pathways.
+     * Add an SBML model to this map.  Currently, we just add the reactions and
+     * metabolite nodes, and do not create segments.  The result is good enough for
+     * analysis of pathways.
      *
      * The SBML model must use Argonne naming conventions:  each ID consists of a
      * prefix ("X_", where "X" indicates the type) plus the BiGG ID.
@@ -53,7 +54,9 @@ public class SbmlMetaModel extends MetaModel {
      * @param sbmlModel		SBML model to import
      */
     public void importSbml(Model sbmlModel) {
-        int newReactionCount = 0;
+        int count = 0;
+        // Insure we have a reaction network built.
+        this.buildReactionNetwork();
         // We will need the alias map for the base genome.
         var aliasMap = this.getBaseGenome().getAliasMap();
         // Get an FBC-aware version of the model.
@@ -67,7 +70,7 @@ public class SbmlMetaModel extends MetaModel {
             // not already present.
             String rBiggId = StringUtils.removeStart(newReaction.getId(), "R_");
             if (! this.getBReactionMap().containsKey(rBiggId)) {
-                newReactionCount++;
+                count++;
                 // Get an ID for this reaction.
                 int reactionId = this.getNextId();
                 Reaction reaction = new Reaction(reactionId, rBiggId, newReaction.getName());
@@ -91,7 +94,23 @@ public class SbmlMetaModel extends MetaModel {
                 this.createReactionNetwork(reaction);
             }
         }
-        log.info("{} new reactions found.", newReactionCount);
+        log.info("{} new reactions found.  {} in map", count, this.getBReactionMap().size());
+        // Now import the metabolite nodes.
+        final int mN = sbmlModel.getNumSpecies();
+        count = 0;
+        for (int mI = 0; mI < mN; mI++) {
+            var newSpecies = sbmlModel.getSpecies(mI);
+            String mBiggId = StringUtils.removeStart(newSpecies.getId(), "M_");
+            if (! this.getMetaboliteMap().containsKey(mBiggId)) {
+                // Here we need to add a new metabolite node.
+                String mName = newSpecies.getName();
+                int nodeId = this.getNextId();
+                var node = new ModelNode.Metabolite(nodeId, mBiggId, mName);
+                this.addNode(node);
+                count++;
+            }
+        }
+        log.info("{} new metabolites found.", count);
     }
 
 
